@@ -1,0 +1,10 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+@layer components {
+	.my-input {
+		@apply border border-black/10 rounded-md outline-none py-1.5 px-2;
+	}
+}
