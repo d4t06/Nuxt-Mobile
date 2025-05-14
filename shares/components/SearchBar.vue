@@ -3,7 +3,6 @@ import { MagnifyingGlassIcon } from "@heroicons/vue/24/outline";
 
 type Props = {
   submit: () => void;
-  className?: string;
 };
 
 const model = defineModel<string>({ default: "" });

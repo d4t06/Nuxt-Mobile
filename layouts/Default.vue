@@ -6,7 +6,7 @@ import Footer from "./_components/Footer.vue";
 <template>
 	<Header />
 
-	<div class="container min-h-screen">
+	<div class="container min-h-[calc(100vh-180px)] relative">
 		<slot />
 	</div>
 

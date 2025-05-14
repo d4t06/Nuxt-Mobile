@@ -11,7 +11,7 @@ const ButtonVariant = cva(classes.button, {
 	variants: {
 		variant: {
 			primary:
-				"before:content-[''] before:absolute before:z-[-1] before:inset-0 active:translate-y-[2px] active:before:shadow-none",
+				"before:border-[2px] before:content-[''] before:absolute before:z-[-1] before:inset-0 active:translate-y-[2px] active:before:shadow-none",
 			clear: "before:content-none",
 		},
 		size: {
@@ -73,6 +73,7 @@ const {
 <template>
 	<NuxtLink
 		v-if="href"
+		:disabled="disabled"
 		:to="href"
 		:class="ButtonVariant({ variant, size, colors, className })"
 	>

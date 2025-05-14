@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import Avatar from "./Avatar.vue";
-
-const route = useRoute();
+import { ArrowRightStartOnRectangleIcon } from "@heroicons/vue/24/outline";
 const runtimeConfig = useRuntimeConfig();
 
 const searchKey = ref("");
+
+const { data: session, signOut } = useAuth();
 
 const { data } = await useFetch<Category[]>(
 	`${runtimeConfig.public.API_ENDPOINT}/categories`,
@@ -35,6 +35,18 @@ const handleSearch = () => {
 				class="w-full sm:flex sm:items-center sm:w-auto ml-auto mt-[6px] sm:mt-0"
 			>
 				<SearchBar :submit="handleSearch" v-model="searchKey" />
+
+				<div class="flex items-center ml-5">
+					<template v-if="session">
+						<p v-if="session?.username">{{ session.username }}</p>
+
+						<button @click="signOut()">
+							<ArrowRightStartOnRectangleIcon class="w-6" />
+						</button>
+					</template>
+
+					<NuxtLink class="hover:underline" href="/login" v-else>Sign in</NuxtLink>
+				</div>
 			</div>
 		</div>
 		<div

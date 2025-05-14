@@ -40,8 +40,62 @@ export default defineNuxtConfig({
         },
       },
     ],
+    "@sidebase/nuxt-auth",
   ],
+  auth: {
+    // globalAppMiddleware: true,
+    isEnabled: true,
+    baseURL:
+      (process.env.AUTH_URL || "https://nest-mobile.vercel.app/api") + "/auth",
+    provider: {
+      type: "local",
+      endpoints: {
+        signIn: { path: "/login", method: "post" },
+        signOut: { path: "/logout", method: "post" },
+        signUp: { path: "/register", method: "post" },
+        getSession: { path: "/user-info", method: "get" },
+      },
+      session: {
+        dataType: {
+          username: "string",
+          role: "string;",
+        },
+      },
+      token: {
+        signInResponseTokenPointer: "/token",
+        // >>> Commented codes below are default
+        // httpOnlyCookieAttribute: false,
+        // cookieName: "auth.token",
+        // type: "Bearer",
+        // maxAgeInSeconds: 1800,
+        // headerName: "Authorization",
+        // sameSiteAttribute: "lax",
+        // cookieDomain: "",
+        // secureCookieAttribute: false,
+      },
+      refresh: {
+        isEnabled: true,
+        endpoint: { path: "/refresh", method: "post" },
+        refreshOnlyToken: true,
+        token: {
+          signInResponseRefreshTokenPointer: "/refresh_token",
+          // If not set, token.signInResponseTokenPointer will be used instead.
+          refreshResponseTokenPointer: "/token",
+          // How the JSON look like when send to server ex: {"refresh_token": "asdasd"}
+          refreshRequestTokenPointer: "/refresh_token",
+          cookieName: "auth.refresh-token",
 
-  // define modules
-  // modules: ["@sidebase/nuxt-auth"],
+          // >>> Commented codes below are default
+          // httpOnlyCookieAttribute: flase,
+          // maxAgeInSeconds: 1800,
+          // sameSiteAttribute: "lax",
+          // secureCookieAttribute: false,
+          // cookieDomain: "",
+        },
+      },
+      pages: {
+        login: "/login",
+      },
+    },
+  },
 });

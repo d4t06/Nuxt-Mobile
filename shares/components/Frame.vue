@@ -18,16 +18,16 @@ const Variant = cva("border-[2px] p-3 border-b-[6px] rounded-[14px]", {
 type TypeProps = VariantProps<typeof Variant>;
 
 type Props = {
-	className?: string;
 	onClick?: () => void;
 	colors?: TypeProps["colors"];
+	class?: string;
 };
 
 const props = defineProps<Props>();
 </script>
 
 <template>
-	<div :class="`${Variant({ colors, className })} `">
+	<div :class="`${Variant({ colors, className: props.class })} `">
 		<slot />
 	</div>
 </template>
