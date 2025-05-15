@@ -5,7 +5,7 @@ type Props = {
   submit: () => void;
 };
 
-const model = defineModel<string>({ default: "" });
+const model = ref("");
 const props = defineProps<Props>();
 
 const inner = ref<HTMLInputElement | null>(null);

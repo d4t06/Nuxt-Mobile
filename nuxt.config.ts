@@ -26,7 +26,7 @@ export default defineNuxtConfig({
   runtimeConfig: {
     public: {
       API_ENDPOINT:
-        process.env.NUXT_PUBLIC_API_BASE ||
+        process.env.API_ENDPOINT ||
         "https://nest-mobile.vercel.app/api",
     },
   },
