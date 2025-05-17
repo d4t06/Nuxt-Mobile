@@ -4,7 +4,7 @@ export default defineNuxtConfig({
   devtools: { enabled: false },
 
   components: {
-    dirs: ["~/components", "~/shares/components"],
+    dirs: [{ path: "~/shares/components", pathPrefix: false }],
   },
   // global css
   css: ["./global.css"],
@@ -22,12 +22,14 @@ export default defineNuxtConfig({
     },
   },
 
+  routeRules: {
+    "/admin/**": { ssr: false },
+  },
+
   // env variables
   runtimeConfig: {
     public: {
-      API_ENDPOINT:
-        process.env.API_ENDPOINT ||
-        "https://nest-mobile.vercel.app/api",
+      API_ENDPOINT: process.env.API_ENDPOINT || "https://nest-mobile.vercel.app/api",
     },
   },
 
@@ -45,8 +47,7 @@ export default defineNuxtConfig({
   auth: {
     // globalAppMiddleware: true,
     isEnabled: true,
-    baseURL:
-      (process.env.AUTH_URL || "https://nest-mobile.vercel.app/api") + "/auth",
+    baseURL: (process.env.AUTH_URL || "https://nest-mobile.vercel.app/api") + "/auth",
     provider: {
       type: "local",
       endpoints: {
@@ -59,6 +60,7 @@ export default defineNuxtConfig({
         dataType: {
           username: "string",
           role: "string;",
+          token: "string;",
         },
       },
       token: {

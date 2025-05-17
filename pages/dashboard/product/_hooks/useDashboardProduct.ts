@@ -1,19 +1,47 @@
-const tabs = ["All", "Result"] as const;
+import { ref, watchEffect } from "vue";
 
-type Tab = (typeof tabs)[number];
+const tabs = ["All", "Result"];
 
 export default function useDashboardProduct() {
+  const runtimeConfig = useRuntimeConfig();
+
   const products = ref<Product[]>([]);
 
   const value = ref("");
   const isFetching = ref(true);
-  const currentTab = ref<Tab>("All");
+  const tab = ref("All");
 
-  const handleSubmit = async () => {
+  type Search = {
+    variant: "search";
+  };
+
+  type GetProducts = {
+    variant: "get-products";
+  };
+
+  const fetchProduct = async (props: Search | GetProducts) => {
     try {
       isFetching.value = true;
 
-      currentTab.value = "Result";
+      switch (props.variant) {
+        case "search": {
+          const res = await $fetch<Product[]>(
+            `${runtimeConfig.public.API_ENDPOINT}/products/search?q=${value.value}`,
+          );
+
+          products.value = res;
+          tab.value = "Result";
+          break;
+        }
+        case "get-products": {
+          const res = await $fetch<{ products: Product[] }>(
+            `${runtimeConfig.public.API_ENDPOINT}/products`,
+          );
+          products.value = res.products;
+
+          break;
+        }
+      }
     } catch (err) {
       console.log({ message: err });
     } finally {
@@ -21,20 +49,18 @@ export default function useDashboardProduct() {
     }
   };
 
-  const handleGetSong = async () => {};
-
   watchEffect(() => {
-    if (currentTab.value !== "All") return;
+    if (tab.value !== "All") return;
 
-    handleGetSong();
+    fetchProduct({ variant: "get-products" });
   });
 
   return {
     isFetching,
     value,
-    handleSubmit,
+    fetchProduct,
     tabs,
     products,
-    currentTab
+    tab,
   };
 }
