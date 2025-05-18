@@ -4,7 +4,7 @@
 
 @layer components {
 	.my-input {
-		@apply border w-full bg-[rgba(0,0,0,.05)] border-black/10 rounded-md outline-none py-1.5 px-2;
+		@apply border w-full bg-[#f1f1f1] border-black/10 rounded-md outline-none py-1.5 px-2;
 	}
 }
 

@@ -5,7 +5,7 @@ import type { ModalRef } from "~/shares/components/modal/Modal.vue";
 
 const modalRef = ref<ModalRef | null>(null);
 
-const { actions, isFetching } = useCategoryAction();
+const { actions, isFetching } = useCategoryAction({modalRef});
 </script>
 <template>
   <Button :onclick="modalRef && modalRef.open">

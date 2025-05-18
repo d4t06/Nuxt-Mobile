@@ -2,6 +2,8 @@
 import { useCategoryContext } from "~/stores/categoryProvider";
 import CategoryList from "./_components/CategoryList.vue";
 import AddNewCategoryBtn from "./_components/AddNewCategoryBtn.vue";
+import BrandList from "./_components/BrandList.vue";
+import AttributeList from "./_components/AttributeList.vue";
 
 definePageMeta({
   layout: "dashboard",
@@ -28,6 +30,19 @@ const classes = {
     <div :class="classes.group">
       <CategoryList />
     </div>
-    <template v-if="categories.length"> </template>
+    <template v-if="categories.length">
+      <h1 :class="classes.label">Brand</h1>
+      <div :class="classes.group">
+        <BrandList />
+      </div>
+
+
+      <h1 :class="classes.label">Attribute</h1>
+      <div :class="classes.group">
+        <AttributeList />
+      </div>
+    </template>
   </div>
+
+  
 </template>

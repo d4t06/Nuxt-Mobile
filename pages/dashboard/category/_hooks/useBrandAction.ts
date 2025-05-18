@@ -1,9 +1,14 @@
+import type { ModalRef } from "~/shares/components/modal/Modal.vue";
 import { useCategoryContext } from "~/stores/categoryProvider";
 import { useToastContext } from "~/stores/toastProvider";
 
 const CATEGORY_URL = "/brands";
 
-export default function useBrandAction() {
+type Props = {
+  modalRef: Ref<ModalRef | null>;
+};
+
+export default function useBrandAction({ modalRef }: Props) {
   const { categories } = useCategoryContext();
   const { showToast } = useToastContext();
 
@@ -49,7 +54,7 @@ export default function useBrandAction() {
         }
 
         case "Delete": {
-          await fetch(`${CATEGORY_URL}/${props.id}`);
+          await fetch(`${CATEGORY_URL}/${props.id}`, { method: "DELETE" });
           break;
         }
       }
@@ -64,6 +69,7 @@ export default function useBrandAction() {
       }
     } finally {
       isFetching.value = false;
+      modalRef.value?.close();
     }
   };
 

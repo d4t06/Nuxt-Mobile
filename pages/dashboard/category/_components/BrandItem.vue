@@ -17,7 +17,7 @@ const { brand } = toRefs(props);
 const modalRef = ref<ModalRef | null>(null);
 const modal = ref<Modal | "">("");
 
-const { actions, isFetching } = useBrandAction();
+const { actions, isFetching } = useBrandAction({modalRef});
 
 const openModal = (m: Modal) => {
   modal.value = m;
@@ -26,45 +26,50 @@ const openModal = (m: Modal) => {
 </script>
 
 <template>
-  <ItemRightCtaFrame>
-    <span>{{ brand.brand_name }}</span>
+  <div class="border-[2px] border-[#e1e1e1] rounded-lg mt-2 ml-2">
+    <ItemRightCtaFrame className="bg-none border-none">
+      <span>{{ brand.brand_name }}</span>
 
-    <div>
-      <button @click="openModal('edit')">
-        <PencilIcon class="w-5" />
-      </button>
-      <button @click="openModal('delete')">
-        <TrashIcon class="w-5" />
-      </button>
-    </div>
+      <div>
+        <button @click="openModal('edit')">
+          <PencilIcon class="w-5" />
+        </button>
+        <button @click="openModal('delete')">
+          <TrashIcon class="w-5" />
+        </button>
+      </div>
 
-    <Modal ref="modalRef">
-      <ConfirmModal
-        v-if="modal === 'delete'"
-        :loading="isFetching"
-        :closeModal="modalRef?.close"
-        :submit="() => actions({ type: 'Delete', id: brand.id })"
-      />
+      <Modal ref="modalRef">
+        <ConfirmModal
+          v-if="modal === 'delete'"
+          label="Delete brand"
+          :loading="isFetching"
+          :closeModal="modalRef?.close"
+          :submit="() => actions({ type: 'Delete', id: brand.id })"
+        />
 
-      <AddItemModal
-        v-if="modal === 'edit'"
-        variant="input"
-        title="Edit category"
-        :loading="isFetching"
-        :initValue="brand.brand_name"
-        :closeModal="modalRef?.close"
-        :submit="
-          (v) =>
-            actions({
-              type: 'Edit',
-              brand: {
-                brand_name: v,
-                brand_name_ascii: generateId(v),
-              },
-              id: brand.id,
-            })
-        "
-      />
-    </Modal>
-  </ItemRightCtaFrame>
+        <AddItemModal
+          v-if="modal === 'edit'"
+          variant="input"
+          title="Edit brand"
+          :loading="isFetching"
+          :initValue="brand.brand_name"
+          :closeModal="modalRef?.close"
+          :submit="
+            (v) =>
+              actions({
+                type: 'Edit',
+                brand: {
+                  brand_name: v,
+                  brand_name_ascii: generateId(v),
+                },
+                id: brand.id,
+              })
+          "
+        />
+      </Modal>
+    </ItemRightCtaFrame>
+
+    <img class="w-[90px] mx-auto" :src="brand.image_url || '/search-empty.png'" />
+  </div>
 </template>

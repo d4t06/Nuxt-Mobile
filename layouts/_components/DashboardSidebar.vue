@@ -29,12 +29,6 @@ const classes = {
 
 <template>
   <div :class="`${classes.container} ${expand ? classes.containerExpand : ''}`">
-    <div :class="classes.head">
-      <h1 :class="classes.logoText">
-        HD
-        <span class="text-[#cd1818]">D<span v-if="expand">ashboard</span></span>
-      </h1>
-    </div>
     <div :class="classes.linkList">
       <NuxtLink
         href="/dashboard/product"

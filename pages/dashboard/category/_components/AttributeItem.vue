@@ -1,20 +1,20 @@
 <script setup lang="ts">
 import type { ModalRef } from "~/shares/components/modal/Modal.vue";
-import useCategoryAction from "../_hooks/useCategoryAction";
 import { PencilIcon, TrashIcon } from "@heroicons/vue/24/outline";
+import useAttributeAction from "../_hooks/useAttributeAction";
 
 type Props = {
-  category: Category;
+  attribute: CategoryAttribute;
 };
 
-const props = defineProps<Props>();
+defineProps<Props>();
 
 type Modal = "edit" | "delete";
 
 const modalRef = ref<ModalRef | null>(null);
 const modal = ref<Modal | "">("");
 
-const { actions, isFetching } = useCategoryAction({modalRef});
+const { actions, isFetching } = useAttributeAction({ modalRef });
 
 const openModal = (m: Modal) => {
   modal.value = m;
@@ -24,7 +24,7 @@ const openModal = (m: Modal) => {
 
 <template>
   <ItemRightCtaFrame>
-    <span>{{ props.category.category_name }}</span>
+    <span>{{ attribute.attribute_name }}</span>
 
     <div>
       <button @click="openModal('edit')">
@@ -40,7 +40,7 @@ const openModal = (m: Modal) => {
         v-if="modal === 'delete'"
         :loading="isFetching"
         :closeModal="modalRef?.close"
-        :submit="() => actions({ type: 'Delete', id: props.category.id })"
+        :submit="() => actions({ type: 'Delete', id: attribute.id })"
       />
 
       <AddItemModal
@@ -48,9 +48,16 @@ const openModal = (m: Modal) => {
         variant="input"
         title="Edit category"
         :loading="isFetching"
-        :initValue="category.category_name"
+        :initValue="attribute.attribute_name"
         :closeModal="modalRef?.close"
-        :submit="(v) => actions({ type: 'Edit', name: v, id: props.category.id })"
+        :submit="
+          (v) =>
+            actions({
+              type: 'Edit',
+              attribute: { attribute_name: v, attribute_name_ascii: generateId(v) },
+              id: attribute.id,
+            })
+        "
       />
     </Modal>
   </ItemRightCtaFrame>

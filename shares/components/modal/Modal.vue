@@ -54,8 +54,6 @@ const classes = {
   unMountedLayer: "opacity-0",
   mountedLayer: "opacity-100",
 };
-
-console.log("modal render");
 </script>
 
 <template>
@@ -74,7 +72,9 @@ console.log("modal render");
       ${isMounted ? classes.mountedContent : classes.unMountedContent}
 `"
     >
-      <div :class="`${props.childClassName || ' py-3 px-4'} rounded-lg bg-white`">
+      <div
+        :class="`${props.childClassName || 'w-[400px]'}  flex flex-col py-3 px-4 max-h-[80vh] max-w-[90vw] rounded-lg bg-white`"
+      >
         <slot />
       </div>
     </div>

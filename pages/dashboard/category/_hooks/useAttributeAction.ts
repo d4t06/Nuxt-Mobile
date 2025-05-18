@@ -1,15 +1,14 @@
 import type { ModalRef } from "~/shares/components/modal/Modal.vue";
 import { useCategoryContext } from "~/stores/categoryProvider";
 import { useToastContext } from "~/stores/toastProvider";
-import { generateId } from "~/utils";
 
-const CATEGORY_URL = "/categories";
+const ATTRIBUTE_ENDPOINT = "/category-attributes";
 
 type Props = {
   modalRef: Ref<ModalRef | null>;
 };
 
-export default function useCategoryAction({ modalRef }: Props) {
+export default function useAttributeAction({ modalRef }: Props) {
   const { categories } = useCategoryContext();
   const { showToast } = useToastContext();
 
@@ -20,12 +19,12 @@ export default function useCategoryAction({ modalRef }: Props) {
 
   type Add = {
     type: "Add";
-    name: string;
+    attribute: CategoryAttributeSchema;
   };
 
   type Edit = {
     type: "Edit";
-    category: Partial<CategorySchema>;
+    attribute: Partial<CategoryAttributeSchema>;
     id: number;
   };
 
@@ -42,35 +41,29 @@ export default function useCategoryAction({ modalRef }: Props) {
 
       switch (props.type) {
         case "Add":
-          const CategorySchema: CategorySchema = {
-            attribute_order: "",
-            category_name: props.name,
-            category_name_ascii: generateId(props.name),
-          };
-          await fetch<Category>(CATEGORY_URL, {
+          await fetch<Category>(ATTRIBUTE_ENDPOINT, {
             method: "POST",
-            body: CategorySchema,
+            body: props.attribute,
           });
 
           break;
         case "Edit": {
-          const { category, id } = props;
-
-          await fetch(`${CATEGORY_URL}/${id}`, { body: category, method: "PUT" });
-
+          const { attribute, id } = props;
+          await fetch(`${ATTRIBUTE_ENDPOINT}/${id}`, { body: attribute, method: "PUT" });
           break;
         }
 
         case "Delete": {
-          await fetch(`${CATEGORY_URL}/${props.id}`, { method: "DELETE" });
+          await fetch(`${ATTRIBUTE_ENDPOINT}/${props.id}`);
           break;
         }
       }
+
       const res = await fetch<Category[]>("/categories");
       categories.value = res;
     } catch (error: any) {
       if (error.response.status === 409) {
-        showToast(false, "Category name had taken");
+        showToast(false, "Attribite name had taken");
       } else {
         showToast(false);
       }

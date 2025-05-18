@@ -41,6 +41,8 @@ const classes = {
 
 <template>
   <div :class="`${classes.container} ${isScrolled ? 'shadow-md' : ''}`">
+    <div><span class="text-[#cd1818]">HD</span> Dashboard</div>
+
     <div class="ml-auto">
       <button>
         {{ session?.username || "Unauthorized" }}
