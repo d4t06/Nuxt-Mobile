@@ -1,12 +1,18 @@
 <script setup lang="ts">
+import ProductItem from "~/components/ProductItem.vue";
 import AddProductBtn from "./_components/AddProductBtn.vue";
+import { useProductContext } from "./_hooks/productProvider";
 import useDashboardProduct from "./_hooks/useDashboardProduct";
 
 definePageMeta({
   layout: "dashboard",
 });
 
-const { tabs, tab, fetchProduct, isFetching, products, value } = useDashboardProduct();
+const { tabs, tab, fetchProduct, isFetching, result, value } = useDashboardProduct();
+
+const { products, page, isFetching: isGetMoreFetching } = useProductContext();
+
+const _products = computed(() => (tab.value === "All" ? products.value : result.value));
 </script>
 
 <template>
@@ -32,10 +38,26 @@ const { tabs, tab, fetchProduct, isFetching, products, value } = useDashboardPro
   <div class="mt-3">
     <Loading v-if="isFetching" />
 
-    <template v-else-if="products.length">
-      <NuxtLink v-for="product in products" :href="`/product/${product.id}`">
+    <template v-else-if="_products.length">
+      <NuxtLink v-for="product in _products" :href="`product/${product.id}`">
         <ProductItem :product="product" />
       </NuxtLink>
+
+      <Loading v-if="isGetMoreFetching" />
+
+      <p v-if="tab === 'All'" class="text-center">
+        <Button
+          :onClick="
+            () => {
+              page++;
+              fetchProduct({ variant: 'get-products' });
+            }
+          "
+          colors="second"
+        >
+          More
+        </Button>
+      </p>
     </template>
 
     <NotFound v-else />

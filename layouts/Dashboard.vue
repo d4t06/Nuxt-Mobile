@@ -4,9 +4,14 @@ import DashboardSidebar from "./_components/DashboardSidebar.vue";
 import categoryProvider from "~/stores/categoryProvider";
 import ToastContainer from "./_components/ToastContainer.vue";
 import toastProvider from "~/stores/toastProvider";
+import galleryProvider from "~/stores/galleryProvider";
+import UploadImagePortal from "~/components/gallery/UploadImagePortal.vue";
+import productProvider from "~/pages/dashboard/product/_hooks/productProvider";
 
 categoryProvider();
 toastProvider();
+galleryProvider();
+productProvider();
 </script>
 
 <template>
@@ -26,5 +31,6 @@ toastProvider();
     </div>
   </div>
 
+  <UploadImagePortal />
   <ToastContainer />
 </template>

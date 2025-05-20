@@ -1,8 +1,11 @@
 <script lang="ts" setup>
+import ModalWrapper from "./ModalWrapper.vue";
+
 type Props = {
   className?: string;
   childClassName?: string;
   persisted?: boolean;
+  wrapper?: boolean;
 };
 
 export type ModalRef = {
@@ -72,11 +75,11 @@ const classes = {
       ${isMounted ? classes.mountedContent : classes.unMountedContent}
 `"
     >
-      <div
-        :class="`${props.childClassName || 'w-[400px]'}  flex flex-col py-3 px-4 max-h-[80vh] max-w-[90vw] rounded-lg bg-white`"
-      >
+      <ModalWrapper v-if="props.wrapper">
         <slot />
-      </div>
+      </ModalWrapper>
+
+      <slot v-else />
     </div>
   </Teleport>
 </template>

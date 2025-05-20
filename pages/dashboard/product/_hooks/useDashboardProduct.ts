@@ -1,15 +1,17 @@
 import { ref, watchEffect } from "vue";
+import { useProductContext } from "./productProvider";
 
 const tabs = ["All", "Result"];
 
 export default function useDashboardProduct() {
   const runtimeConfig = useRuntimeConfig();
 
-  const products = ref<Product[]>([]);
+  const { products, page, isFetching: isGetMoreFetching } = useProductContext();
 
+  const result = ref<Product[]>([]);
   const value = ref("");
-  const isFetching = ref(true);
   const tab = ref("All");
+  const isFetching = ref(true);
 
   type Search = {
     variant: "search";
@@ -21,23 +23,25 @@ export default function useDashboardProduct() {
 
   const fetchProduct = async (props: Search | GetProducts) => {
     try {
-      isFetching.value = true;
-
       switch (props.variant) {
         case "search": {
+          isFetching.value = true;
+
           const res = await $fetch<Product[]>(
             `${runtimeConfig.public.API_ENDPOINT}/products/search?q=${value.value}`,
           );
 
-          products.value = res;
+          result.value = res;
           tab.value = "Result";
           break;
         }
         case "get-products": {
+          if (page.value > 1) isGetMoreFetching.value = true;
+
           const res = await $fetch<{ products: Product[] }>(
-            `${runtimeConfig.public.API_ENDPOINT}/products`,
+            `${runtimeConfig.public.API_ENDPOINT}/products?page=${page.value}`,
           );
-          products.value = res.products;
+          products.value.push(...res.products);
 
           break;
         }
@@ -46,13 +50,13 @@ export default function useDashboardProduct() {
       console.log({ message: err });
     } finally {
       isFetching.value = false;
+      isGetMoreFetching.value = false;
     }
   };
-
   watchEffect(() => {
     if (tab.value !== "All") return;
 
-    fetchProduct({ variant: "get-products" });
+    if (!products.value.length) fetchProduct({ variant: "get-products" });
   });
 
   return {
@@ -60,7 +64,7 @@ export default function useDashboardProduct() {
     value,
     fetchProduct,
     tabs,
-    products,
     tab,
+    result,
   };
 }
