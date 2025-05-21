@@ -88,6 +88,6 @@ const openModal = (m: Modal) => {
       </Modal>
     </ItemRightCtaFrame>
 
-    <img class="w-[90px] mx-auto" :src="brand.image_url || '/search-empty.png'" />
+    <img class="w-[90px] h-[90px] object-center mx-auto" :src="brand.image_url || '/search-empty.png'" />
   </div>
 </template>

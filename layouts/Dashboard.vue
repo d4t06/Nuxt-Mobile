@@ -6,12 +6,12 @@ import ToastContainer from "./_components/ToastContainer.vue";
 import toastProvider from "~/stores/toastProvider";
 import galleryProvider from "~/stores/galleryProvider";
 import UploadImagePortal from "~/components/gallery/UploadImagePortal.vue";
-import productProvider from "~/pages/dashboard/product/_hooks/productProvider";
+import productsProvider from "~/pages/dashboard/product/_hooks/productsProvider";
 
 categoryProvider();
 toastProvider();
 galleryProvider();
-productProvider();
+productsProvider();
 </script>
 
 <template>

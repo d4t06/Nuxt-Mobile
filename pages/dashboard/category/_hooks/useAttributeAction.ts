@@ -54,10 +54,12 @@ export default function useAttributeAction({ modalRef }: Props) {
         }
 
         case "Delete": {
-          await fetch(`${ATTRIBUTE_ENDPOINT}/${props.id}`);
+          await fetch(`${ATTRIBUTE_ENDPOINT}/${props.id}`, {method: "DELETE"});
           break;
         }
       }
+
+      showToast(true, `${props.type} ok`);
 
       const res = await fetch<Category[]>("/categories");
       categories.value = res;

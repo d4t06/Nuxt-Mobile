@@ -40,7 +40,7 @@ const classes = {
     :class="` ${classes.container} ${
       isShow ? classes.open : classes.init
     } ${toast.title === 'error' && 'bg-red-500'} ${
-      toast.title === 'success' && 'bg-white'
+      toast.title === 'success' && 'bg-green-500'
     } `"
   >
     <CheckIcon v-if="toast.title === 'success'" class="w-6" />

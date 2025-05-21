@@ -59,6 +59,8 @@ export default function useBrandAction({ modalRef }: Props) {
         }
       }
 
+      showToast(true, `${props.type} ok`);
+
       const res = await fetch<Category[]>("/categories");
       categories.value = res;
     } catch (error: any) {

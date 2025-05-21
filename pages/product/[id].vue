@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import ProductSpecTable from '~/components/ProductSpecTable.vue';
+
 const route = useRoute();
 
 const runtimeConfig = useRuntimeConfig();

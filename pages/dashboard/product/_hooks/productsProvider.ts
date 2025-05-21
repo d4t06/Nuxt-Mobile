@@ -10,16 +10,16 @@ const useProduct = () => {
 
 type ContextType = ReturnType<typeof useProduct>;
 
-export default function productProvider() {
+export default function productsProvider() {
   const state = useProduct();
 
-  provide("product_context", state);
+  provide("products_context", state);
 
   return state;
 }
 
-export function useProductContext() {
-  const state = inject<ContextType>("product_context")!;
+export function useProductsContext() {
+  const state = inject<ContextType>("products_context")!;
   if (!state) throw new Error("productProvider not provided");
 
   return state;

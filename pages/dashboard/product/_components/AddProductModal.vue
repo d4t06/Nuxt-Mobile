@@ -17,13 +17,12 @@ type AddProduct = {
 type EditProduct = {
   type: "Edit";
   product: Product;
+  callback: (product: Partial<ProductSchema>) => void;
 };
 
 const props = defineProps<Props & (AddProduct | EditProduct)>();
 
 const { categories } = useCategoryContext();
-
-const { addProduct, isFetching } = useAddProduct();
 
 const productData = ref(
   (() => {
@@ -46,6 +45,8 @@ const productData = ref(
 
 const modalRef = ref<ModalRef>();
 
+const { addProduct, isFetching } = useAddProduct({ closeModal: props.closeModal });
+
 const currentCategory = computed(() =>
   productData.value
     ? categories.value.find((c) => c.id === productData.value.category_id)
@@ -66,6 +67,10 @@ const ableToSubmit = computed(
     productData.value.category_id !== undefined &&
     productData.value.brand_id !== undefined,
 );
+
+watchEffect(() => {
+  productData.value.product_name_ascii = generateId(productData.value.product_name);
+});
 </script>
 
 <template>
@@ -108,8 +113,8 @@ const ableToSubmit = computed(
 
             <div class="space-y-[4px]">
               <label htmlFor="">Brand</label>
-              <select class="my-input">
-                <option value="{undefined}">- - -</option>
+              <select v-model="productData.brand_id" class="my-input">
+                <option :value="undefined">- - -</option>
                 <option v-for="brand in currentCategory?.brands" :value="brand.id">
                   {{ brand.brand_name }}
                 </option>
@@ -123,6 +128,7 @@ const ableToSubmit = computed(
     <div class="text-right mt-[10px]">
       <Button
         :disabled="!ableToSubmit"
+        :loading="isFetching"
         :onClick="
           () =>
             props.type === 'Add'
@@ -131,6 +137,7 @@ const ableToSubmit = computed(
                   variant: 'Edit',
                   product: productData,
                   id: props.product.id,
+                  callback: () => props.callback(productData),
                 })
         "
       >

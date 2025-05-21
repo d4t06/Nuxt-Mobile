@@ -4,7 +4,7 @@ import { cva, type VariantProps } from "class-variance-authority";
 
 const classes = {
 	button:
-		"inline-flex relative items-center space-x-1 justify-center z-0 hover:brightness-90",
+		"inline-flex relative items-center space-x-1 justify-center z-0 hover:brightness-[0.95]",
 };
 
 const ButtonVariant = cva(classes.button, {
@@ -36,7 +36,7 @@ const ButtonVariant = cva(classes.button, {
 		variant: "primary",
 		size: "primary",
 		colors: "primary",
-		rounded: "md",
+		rounded: "lg",
 	},
 });
 

@@ -14,6 +14,7 @@ export default function useCategoryAction({ modalRef }: Props) {
   const { showToast } = useToastContext();
 
   const fetch = usePrivateFetch();
+
   const isFetching = ref(false);
 
   // hooks
@@ -66,6 +67,10 @@ export default function useCategoryAction({ modalRef }: Props) {
           break;
         }
       }
+
+
+      showToast(true, `${props.type} ok`)
+
       const res = await fetch<Category[]>("/categories");
       categories.value = res;
     } catch (error: any) {

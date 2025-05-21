@@ -22,8 +22,11 @@ const classes = {
   logoText: "text-[22px] font-[500] whitespace-nowrap tracking-[-1px]",
   logoImage: "max-w-[50px] p-[4px]",
   item: "flex space-x-[6px] font-[500] items-center justify-center p-[10px] text-[#333] hover:text-[#cd1818] hover:bg-[#f8f8f8]",
-  itemActive: "text-[#cd1818] bg-[#f1f1f1]",
-  linkList: "[&_svg]:w-6 [&_svg]:flex-shrink-0",
+  itemActive: "text-[#cd1818] bg-black/5",
+  linkList: "[&_svg]:w-6 [&_svg]:flex-shrink-0 mt-[60px]",
+};
+const getActive = (path: string) => {
+  if (route.path === path) return classes.itemActive;
 };
 </script>
 
@@ -33,7 +36,7 @@ const classes = {
       <NuxtLink
         href="/dashboard/product"
         :class="`${classes.item} ${expand ? '!justify-start' : ''}
-               ${pathName === '/dashboard/product' ? classes.itemActive : ''}`"
+               ${getActive('/dashboard/product')}`"
       >
         <DevicePhoneMobileIcon />
         <span v-if="expand">Product</span>
@@ -41,7 +44,7 @@ const classes = {
 
       <NuxtLink
         :class="`${classes.item} ${expand ? '!justify-start' : ''}
-               ${pathName === '/category' ? classes.itemActive : ''}
+               ${getActive('/dashboard/category')}
                `"
         href="/dashboard/category"
       >
@@ -51,7 +54,7 @@ const classes = {
 
       <NuxtLink
         :class="`${classes.item} ${expand ? '!justify-start' : ''}
-               ${pathName === '/dashboard/comment' ? classes.itemActive : ''}
+               ${getActive('/dashboard/comment')}
                `"
         href="/dashboard/comment"
       >

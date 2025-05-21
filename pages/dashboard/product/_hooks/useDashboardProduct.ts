@@ -1,12 +1,12 @@
 import { ref, watchEffect } from "vue";
-import { useProductContext } from "./productProvider";
+import { useProductsContext } from "./productsProvider";
 
 const tabs = ["All", "Result"];
 
 export default function useDashboardProduct() {
   const runtimeConfig = useRuntimeConfig();
 
-  const { products, page, isFetching: isGetMoreFetching } = useProductContext();
+  const { products, page, isFetching: isGetMoreFetching } = useProductsContext();
 
   const result = ref<Product[]>([]);
   const value = ref("");
@@ -57,6 +57,9 @@ export default function useDashboardProduct() {
     if (tab.value !== "All") return;
 
     if (!products.value.length) fetchProduct({ variant: "get-products" });
+    else {
+      isFetching.value = false;
+    }
   });
 
   return {

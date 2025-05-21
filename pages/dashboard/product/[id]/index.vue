@@ -1,36 +1,18 @@
 <script setup lang="ts">
-import { Cog6ToothIcon } from "@heroicons/vue/24/outline";
 import useProductDetail from "./_hooks/useProductDetail";
 import EditProductBtn from "./_components/EditProductBtn.vue";
 import SpecTable from "./_components/SpecTable.vue";
+import DangerZone from "./_components/DangerZone.vue";
+import productProvider from "./_hooks/productProvider";
+import Wrapper from "./_components/Wrapper.vue";
 
 definePageMeta({
   layout: "dashboard",
 });
 
-const { fetchProduct, product, isFetching } = useProductDetail();
-
-watchEffect(() => {
-  fetchProduct();
-});
+productProvider();
 </script>
 
 <template>
-  <Loading v-if="isFetching" />
-
-  <template v-else-if="product">
-    <div class="space-y-8">
-      <div class="flex justify-between">
-        <p>{{ product.product_name }}</p>
-
-        <EditProductBtn />
-      </div>
-
-      <h1>Specification</h1>
-
-      <SpecTable :product="product" />
-    </div>
-  </template>
-
-  <NotFound v-else />
+  <Wrapper />
 </template>

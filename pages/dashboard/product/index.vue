@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import ProductItem from "~/components/ProductItem.vue";
 import AddProductBtn from "./_components/AddProductBtn.vue";
-import { useProductContext } from "./_hooks/productProvider";
+import { useProductsContext } from "./_hooks/productsProvider";
 import useDashboardProduct from "./_hooks/useDashboardProduct";
 
 definePageMeta({
@@ -10,7 +10,7 @@ definePageMeta({
 
 const { tabs, tab, fetchProduct, isFetching, result, value } = useDashboardProduct();
 
-const { products, page, isFetching: isGetMoreFetching } = useProductContext();
+const { products, page, isFetching: isGetMoreFetching } = useProductsContext();
 
 const _products = computed(() => (tab.value === "All" ? products.value : result.value));
 </script>

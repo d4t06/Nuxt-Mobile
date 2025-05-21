@@ -9,7 +9,7 @@ const props = defineProps<Props>();
 <template>
   <div :class="`rounded-md overflow-hidden ${props.className || ''}`">
     <table
-      class="w-full [&_td]:text-sm hover:[&_tr]:bg-black/5 [&_tbody_tr]:border-t [&_tr]:border-black/5 [&_th]:text-sm [&_th]:text-left [&_td]:p-2 [&_th]:p-2"
+      class="w-full [&_td]:text-sm hover:[&_tr]:bg-black/5 [&_tbody_tr]:border-t [&_tr]:border-black/10 [&_th]:text-sm [&_th]:text-left [&_td]:p-2 [&_th]:p-2"
     >
       <thead class="bg-[#cd1818] text-white font-medium">
         <tr>

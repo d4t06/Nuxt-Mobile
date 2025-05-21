@@ -1,12 +1,14 @@
 <script setup lang="ts">
+import { PencilIcon } from "@heroicons/vue/24/outline";
 import MyTable from "~/shares/components/MyTable.vue";
 import { useCategoryContext } from "~/stores/categoryProvider";
+import EditSpecBtn from "./EditSpecBtn.vue";
 
 type Props = {
   product: Product;
 };
 
-type Attribute = { name: string; value: string };
+type Attribute = { attribute: CategoryAttribute; value?: ProductAttribute };
 
 const props = defineProps<Props>();
 
@@ -36,8 +38,8 @@ const attributeData = computed(() => {
     );
 
     const data: Attribute = {
-      name: categoryAttribute.attribute_name,
-      value: foundedValue?.value || "",
+      attribute: categoryAttribute,
+      value: foundedValue,
     };
 
     attributeData.push(data);
@@ -47,14 +49,18 @@ const attributeData = computed(() => {
 });
 </script>
 <template>
-  <MyTable :col-list="['name', 'value']">
+  <MyTable :col-list="['name', 'value', '']">
     <template v-if="attributeData">
       <tr class="first:border-none" v-for="data in attributeData">
         <td>
-          {{ data.name }}
+          {{ data.attribute.attribute_name }}
         </td>
         <td>
-          {{ data.value }}
+          {{ data.value?.value || "..." }}
+        </td>
+
+        <td class="text-right">
+          <EditSpecBtn :product="props.product" :category-attribute="data.attribute" :attribute="data.value" />
         </td>
       </tr>
     </template>

@@ -1,9 +1,13 @@
 import { useToastContext } from "~/stores/toastProvider";
-import { useProductContext } from "./productProvider";
+import { useProductsContext } from "./productsProvider";
 
-export default function useAddProduct() {
+type Props = {
+  closeModal?: () => void;
+};
+
+export default function useAddProduct({ closeModal }: Props) {
   //    hooks
-  const { products } = useProductContext();
+  const { products } = useProductsContext();
   const { showToast } = useToastContext();
 
   const privateRequest = usePrivateFetch();
@@ -22,6 +26,7 @@ export default function useAddProduct() {
     variant: "Edit";
     product: Partial<ProductSchema>;
     id: number;
+    callback: () => void;
   };
 
   const addProduct = async (props: Add | Edit) => {
@@ -43,11 +48,15 @@ export default function useAddProduct() {
           const { product, id } = props;
           await privateRequest(`${PRODUCT_URL}/${id}`, { body: product, method: "PUT" });
 
+          props.callback();
+
           break;
         }
       }
 
       showToast(true, `${props.variant} product successful`);
+
+      closeModal && closeModal();
     } catch (error: any) {
       if (error.response.status === 409) {
         showToast(false, "Product name had taken");
