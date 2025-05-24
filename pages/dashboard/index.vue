@@ -2,7 +2,6 @@
 definePageMeta({
   layout: "dashboard",
   middleware: "sidebase-auth",
-  
 });
 </script>
 

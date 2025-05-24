@@ -12,6 +12,9 @@ categoryProvider();
 toastProvider();
 galleryProvider();
 productsProvider();
+
+
+
 </script>
 
 <template>

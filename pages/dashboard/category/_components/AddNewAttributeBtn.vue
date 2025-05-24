@@ -11,7 +11,7 @@ const props = defineProps<Props>();
 
 const modalRef = ref<ModalRef | null>(null);
 
-const { actions, isFetching } = useAttributeAction({modalRef});
+const { actions, isFetching } = useAttributeAction({ modalRef });
 </script>
 <template>
   <Button :disabled="!props.currentCategory" :onclick="modalRef && modalRef.open">
@@ -33,6 +33,7 @@ const { actions, isFetching } = useAttributeAction({modalRef});
               attribute_name_ascii: generateId(v),
               category_id: props.currentCategory!.id,
             },
+            categoryId: props.currentCategory!.id,
           })
       "
       :loading="isFetching"

@@ -5,6 +5,7 @@ import { PencilIcon, TrashIcon } from "@heroicons/vue/24/outline";
 
 type Props = {
   category: Category;
+  index: number;
 };
 
 const props = defineProps<Props>();
@@ -14,7 +15,7 @@ type Modal = "edit" | "delete";
 const modalRef = ref<ModalRef | null>(null);
 const modal = ref<Modal | "">("");
 
-const { actions, isFetching } = useCategoryAction({modalRef});
+const { actions, isFetching } = useCategoryAction({ modalRef });
 
 const openModal = (m: Modal) => {
   modal.value = m;
@@ -50,7 +51,15 @@ const openModal = (m: Modal) => {
         :loading="isFetching"
         :initValue="category.category_name"
         :closeModal="modalRef?.close"
-        :submit="(v) => actions({ type: 'Edit', name: v, id: props.category.id })"
+        :submit="
+          (v) =>
+            actions({
+              type: 'Edit',
+              category: { category_name: v, category_name_ascii: generateId(v) },
+              id: props.category.id,
+              index: props.index,
+            })
+        "
       />
     </Modal>
   </ItemRightCtaFrame>

@@ -28,6 +28,7 @@ export default function useCategoryAction({ modalRef }: Props) {
     type: "Edit";
     category: Partial<CategorySchema>;
     id: number;
+    index: number;
   };
 
   type Delete = {
@@ -48,10 +49,12 @@ export default function useCategoryAction({ modalRef }: Props) {
             category_name: props.name,
             category_name_ascii: generateId(props.name),
           };
-          await fetch<Category>(CATEGORY_URL, {
+          const res = await fetch<Category>(CATEGORY_URL, {
             method: "POST",
             body: CategorySchema,
           });
+
+          categories.value.push(res);
 
           break;
         case "Edit": {
@@ -59,20 +62,26 @@ export default function useCategoryAction({ modalRef }: Props) {
 
           await fetch(`${CATEGORY_URL}/${id}`, { body: category, method: "PUT" });
 
+          Object.assign(categories.value[props.index], category);
+
           break;
         }
 
         case "Delete": {
           await fetch(`${CATEGORY_URL}/${props.id}`, { method: "DELETE" });
+
+          const newCategories = categories.value.filter((c) => c.id !== props.id);
+
+          categories.value = newCategories;
+
           break;
         }
       }
 
+      showToast(true, `${props.type} ok`);
 
-      showToast(true, `${props.type} ok`)
-
-      const res = await fetch<Category[]>("/categories");
-      categories.value = res;
+      // const res = await fetch<Category[]>("/categories");
+      // categories.value = res;
     } catch (error: any) {
       if (error.response.status === 409) {
         showToast(false, "Category name had taken");

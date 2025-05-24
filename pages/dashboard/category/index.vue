@@ -4,9 +4,11 @@ import CategoryList from "./_components/CategoryList.vue";
 import AddNewCategoryBtn from "./_components/AddNewCategoryBtn.vue";
 import BrandList from "./_components/BrandList.vue";
 import AttributeList from "./_components/AttributeList.vue";
+import Wrapper from "./_components/Wrapper.vue";
 
 definePageMeta({
   layout: "dashboard",
+  middleware: "sidebase-auth",
 });
 
 const { isFetching, categories } = useCategoryContext();
@@ -33,16 +35,17 @@ const classes = {
     <template v-if="categories.length">
       <h1 :class="classes.label">Brand</h1>
       <div :class="classes.group">
-        <BrandList />
+        <Wrapper>
+          <BrandList />
+        </Wrapper>
       </div>
-
 
       <h1 :class="classes.label">Attribute</h1>
       <div :class="classes.group">
-        <AttributeList />
+        <Wrapper>
+          <AttributeList />
+        </Wrapper>
       </div>
     </template>
   </div>
-
-  
 </template>

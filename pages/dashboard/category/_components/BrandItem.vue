@@ -6,6 +6,7 @@ import Gallery from "~/components/gallery/Gallery.vue";
 
 type Props = {
   brand: Brand;
+  index: number;
 };
 
 type Modal = "edit" | "delete" | "image";
@@ -48,7 +49,7 @@ const openModal = (m: Modal) => {
           label="Delete brand"
           :loading="isFetching"
           :closeModal="modalRef?.close"
-          :submit="() => actions({ type: 'Delete', id: brand.id })"
+          :submit="() => actions({ type: 'Delete', id: brand.id, index: props.index })"
         />
 
         <AddItemModal
@@ -67,6 +68,7 @@ const openModal = (m: Modal) => {
                   brand_name_ascii: generateId(v),
                 },
                 id: brand.id,
+                index: props.index,
               })
           "
         />
@@ -82,12 +84,16 @@ const openModal = (m: Modal) => {
                   image_url: images[0].image_url,
                 },
                 id: brand.id,
+                index: props.index,
               })
           "
         />
       </Modal>
     </ItemRightCtaFrame>
 
-    <img class="w-[90px] h-[90px] object-center mx-auto" :src="brand.image_url || '/search-empty.png'" />
+    <img
+      class="w-[90px] h-[90px] object-center mx-auto"
+      :src="brand.image_url || '/search-empty.png'"
+    />
   </div>
 </template>

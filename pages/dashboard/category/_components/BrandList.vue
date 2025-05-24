@@ -1,31 +1,15 @@
 <script setup lang="ts">
-import type { ModalRef } from "~/shares/components/modal/Modal.vue";
 import { useCategoryContext } from "~/stores/categoryProvider";
 import AddNewBrandBtn from "./AddNewBrandBtn.vue";
 import BrandItem from "./BrandItem.vue";
-type Modal = "add";
+import { useCurrentCategoryContext } from "../_hooks/currentCategoryProvider";
 
 const { categories } = useCategoryContext();
+const { category, index } = useCurrentCategoryContext();
 
-const curCategoryIndex = ref<number>();
-
-const modalRef = ref<ModalRef>();
-const modal = ref<Modal | "">("");
-
-const currentCategory = computed(() =>
-  curCategoryIndex.value != undefined
-    ? categories.value[curCategoryIndex.value]
-    : undefined,
-);
-
-const brandByCategory = computed(() =>
-  currentCategory.value ? currentCategory.value.brands : [],
-);
-
-const openModal = (m: Modal) => {
-  modal.value = m;
-  modalRef.value?.open();
-};
+watchEffect(() => {
+  category.value = index.value != undefined ? categories.value[index.value] : undefined;
+});
 </script>
 <template>
   <div class="flex items-center justify-between">
@@ -36,7 +20,7 @@ const openModal = (m: Modal) => {
           :disabled="!categories.length"
           class="min-w-[100px] my-input"
           name="category"
-          v-model="curCategoryIndex"
+          v-model="index"
         >
           <option :value="undefined">---</option>
           <option v-for="(cat, index) in categories" :value="index">
@@ -46,12 +30,12 @@ const openModal = (m: Modal) => {
       </div>
     </div>
 
-    <AddNewBrandBtn :currentCategory="currentCategory" />
+    <AddNewBrandBtn :currentCategory="category" />
   </div>
 
-  <template v-if="brandByCategory.length">
+  <template v-if="category?.brands.length">
     <div class="flex flex-wrap -mx-2 mt-3">
-      <BrandItem v-for="brand in brandByCategory" :brand="brand" />
+      <BrandItem v-for="(brand, i) in category.brands" :index="i" :brand="brand" />
     </div>
   </template>
   <NotFound v-else />

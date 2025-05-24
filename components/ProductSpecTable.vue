@@ -56,13 +56,16 @@ const attributeData = computed(() => {
       {{ product.product_name }}
     </div>
 
-    <MyTable class-name="mt-2" :col-list="['Specification', '']">
+    <MyTable
+      class-name="mt-2 [&_td]:text-sm [&_thead]:hidden"
+      :col-list="['Specification', '']"
+    >
       <template v-if="attributeData">
         <tr class="first:border-none" v-for="data in attributeData">
-          <td>
+          <td class="text-[#808080]">
             {{ data.name }}
           </td>
-          <td>
+          <td class="whitespace-break-spaces">
             {{ data.value }}
           </td>
         </tr>

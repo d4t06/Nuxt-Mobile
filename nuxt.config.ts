@@ -4,7 +4,7 @@ export default defineNuxtConfig({
   devtools: { enabled: false },
 
   components: {
-    dirs: [{ path: "~/shares/components", pathPrefix: false }],
+    dirs: [{ path: "~/shares/components", pathPrefix: false }, "~/components"],
   },
   // global css
   css: ["./global.css"],
@@ -50,7 +50,7 @@ export default defineNuxtConfig({
       enableOnWindowFocus: false,
     },
     isEnabled: true,
-    baseURL: (process.env.AUTH_URL || "https://nest-mobile.vercel.app/api") + "/auth",
+    baseURL: (process.env.API_ENDPOINT || "https://nest-mobile.vercel.app/api") + "/auth",
     provider: {
       type: "local",
       endpoints: {

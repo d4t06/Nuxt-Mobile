@@ -1,11 +1,12 @@
 <script setup lang="ts">
-import ProductItem from "~/components/ProductItem.vue";
 import AddProductBtn from "./_components/AddProductBtn.vue";
 import { useProductsContext } from "./_hooks/productsProvider";
 import useDashboardProduct from "./_hooks/useDashboardProduct";
 
 definePageMeta({
   layout: "dashboard",
+  middleware: "sidebase-auth",
+
 });
 
 const { tabs, tab, fetchProduct, isFetching, result, value } = useDashboardProduct();

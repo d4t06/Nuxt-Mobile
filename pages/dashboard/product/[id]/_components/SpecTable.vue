@@ -49,13 +49,13 @@ const attributeData = computed(() => {
 });
 </script>
 <template>
-  <MyTable :col-list="['name', 'value', '']">
+  <MyTable :col-list="['Name', 'Value', '']">
     <template v-if="attributeData">
       <tr class="first:border-none" v-for="data in attributeData">
         <td>
           {{ data.attribute.attribute_name }}
         </td>
-        <td>
+        <td class="whitespace-break-spaces">
           {{ data.value?.value || "..." }}
         </td>
 

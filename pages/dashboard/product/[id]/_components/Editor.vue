@@ -72,7 +72,7 @@ const classes = {
     />
     <div :class="`${classes.editContainer} ${isLock ? 'pointer-events-none' : ''}`">
       <editor-content
-        class="pt-[30px] sm:w-[70%] sm:mx-auto px-[20px] sm:px-[50px] pb-[50vh] [&_*]:mt-5 [&_p]"
+        class="pt-[30px] sm:w-[70%] sm:mx-auto px-[20px] sm:px-[50px] pb-[50vh] [&_*]:mt-5 [&_h5]:text-lg [&_h5]:font-medium [&_p]:text-[#333]"
         :editor="editor"
       />
     </div>

@@ -5,9 +5,10 @@ import useAttributeAction from "../_hooks/useAttributeAction";
 
 type Props = {
   attribute: CategoryAttribute;
+  index: number | undefined;
 };
 
-defineProps<Props>();
+const props = defineProps<Props>();
 
 type Modal = "edit" | "delete";
 
@@ -23,7 +24,7 @@ const openModal = (m: Modal) => {
 </script>
 
 <template>
-  <ItemRightCtaFrame>
+  <ItemRightCtaFrame class-name="attribute-item" :data-id="props.attribute.id">
     <span>{{ attribute.attribute_name }}</span>
 
     <div>
@@ -37,14 +38,22 @@ const openModal = (m: Modal) => {
 
     <Modal ref="modalRef">
       <ConfirmModal
-        v-if="modal === 'delete'"
+        v-if="modal === 'delete' && index !== undefined"
         :loading="isFetching"
         :closeModal="modalRef?.close"
-        :submit="() => actions({ type: 'Delete', id: attribute.id })"
+        :submit="
+          () =>
+            actions({
+              type: 'Delete',
+              id: attribute.id,
+              categoryId: props.attribute.category_id,
+              index: props.index as number,
+            })
+        "
       />
 
       <AddItemModal
-        v-if="modal === 'edit'"
+        v-if="modal === 'edit' && index !== undefined"
         variant="input"
         title="Edit category"
         :loading="isFetching"
@@ -56,6 +65,7 @@ const openModal = (m: Modal) => {
               type: 'Edit',
               attribute: { attribute_name: v, attribute_name_ascii: generateId(v) },
               id: attribute.id,
+              index: props.index as number,
             })
         "
       />

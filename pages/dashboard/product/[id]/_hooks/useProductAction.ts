@@ -1,7 +1,10 @@
 import { useToastContext } from "~/stores/toastProvider";
+import { useProductsContext } from "../../_hooks/productsProvider";
 
 export default function useProductAction() {
   const config = useRuntimeConfig();
+
+  const { products } = useProductsContext();
 
   const isFetching = ref(false);
 
@@ -33,6 +36,10 @@ export default function useProductAction() {
           });
 
           showToast(true, "Delete product ok");
+
+          const newProducts = products.value.filter((p) => p.id !== props.id);
+
+          products.value = newProducts;
 
           navigateTo("/dashboard/product");
 

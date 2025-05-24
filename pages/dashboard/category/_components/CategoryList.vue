@@ -8,7 +8,7 @@ const { categories } = useCategoryContext();
 <template>
   <div class="flex flex-wrap -mx-2 -mt-2">
     <template v-if="categories.length">
-      <CategoryItem v-for="cat in categories" :category="cat" />
+      <CategoryItem v-for="(cat, i) in categories" :index="i" :category="cat" />
     </template>
     <NotFound v-else />
   </div>
