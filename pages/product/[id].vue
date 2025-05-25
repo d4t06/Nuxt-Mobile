@@ -14,8 +14,8 @@ const { data, status } = await useFetch<Product>(
 );
 
 const classes = {
-  detailBody: "md:flex items-start mx-[-10px]",
-  detailLeft: "md:w-1/3 px-[10px] flex-shrink-0 md:sticky top-[10px]",
+  detailBody: "md:flex items-start -mx-3",
+  detailLeft: "md:w-1/3 px-3 flex-shrink-0 md:sticky top-[10px]",
 };
 </script>
 

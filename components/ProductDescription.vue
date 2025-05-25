@@ -33,7 +33,7 @@ watchEffect(
 </script>
 <template>
   <div
-    class="content [&>*]:mt-5 [&>p]:text-[#495057] [&>h5]:font-medium [&>h5]:text-lg [&>img]:rounded-md sm:[&>img]:max-w-[90%] [&>img]:mx-auto"
+    class="content px-3 [&>*]:mt-5 [&>p]:text-[#495057] [&>h5]:font-medium [&>h5]:text-lg [&>img]:rounded-md sm:[&>img]:max-w-[90%] [&>img]:mx-auto"
     v-html="props.content"
   ></div>
 
