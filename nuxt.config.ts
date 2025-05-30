@@ -48,6 +48,7 @@ export default defineNuxtConfig({
     // globalAppMiddleware: true,
     sessionRefresh: {
       enableOnWindowFocus: false,
+      enablePeriodically: false,
     },
     isEnabled: true,
     baseURL: (process.env.API_ENDPOINT || "https://nest-mobile.vercel.app/api") + "/auth",
