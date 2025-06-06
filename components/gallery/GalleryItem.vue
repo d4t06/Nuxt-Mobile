@@ -22,9 +22,14 @@ const classes = {
       <div
         @click="props.setActive"
         :class="`${classes.imageFrame}
-                        ${props.active ? 'border-[#cd1818]' : ''}`"
+                        ${props.active ? 'border-[#cd1818]' : ''}
+                         
+                        `"
       >
-        <MyImage class="w-full h-auto" :src="props.image.image_url" />
+        <MyImage
+          :class="`w-full h-auto ${props.setActive ? '' : 'opacity-[.4]'}`"
+          :src="props.image.image_url"
+        />
 
         <slot />
       </div>

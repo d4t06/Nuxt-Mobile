@@ -56,8 +56,8 @@ export default function useUploadImage() {
 
         const res = await privateRequest<ImageType>(IMAGE_URL, {
           body: formData,
-        //   no need to specific content type with fetch
-        //   headers: { "Content-Type": "multipart/form-data" },
+          //   no need to specific content type with fetch
+          //   headers: { "Content-Type": "multipart/form-data" },
           method: "POST",
         });
 

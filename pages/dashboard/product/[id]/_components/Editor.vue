@@ -57,7 +57,7 @@ defineExpose({
 
 const classes = {
   wrapper: "my-editor border border-black/10 bg-white rounded-[12px] overflow-hidden",
-  editContainer: "max-h-[65vh] overflow-auto editor-container",
+  editContainer: "max-h-[60vh] overflow-auto editor-container",
 };
 </script>
 

@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { Cog6ToothIcon } from "@heroicons/vue/24/outline";
+
 type Props = {
   product: Product;
 };
@@ -6,6 +8,8 @@ type Props = {
 const props = defineProps<Props>();
 
 const { data: categories } = useNuxtData<Category[]>("categories");
+
+const { data: session } = useAuth();
 
 type Attribute = { name: string; value: string };
 
@@ -23,7 +27,7 @@ const attributeData = computed(() => {
 
   const attributeData: Attribute[] = [];
 
-  attributeOrderArray.map((id, index) => {
+  attributeOrderArray.map((id) => {
     const categoryAttribute = productCategory.attributes.find(
       (catAtt) => catAtt.id === +id,
     );
@@ -46,6 +50,16 @@ const attributeData = computed(() => {
 
 <template>
   <Frame>
+    <NuxtLink
+      v-if="session?.role === 'ADMIN'"
+      :href="`/dashboard/product/${props.product.id}`"
+      target="_blank"
+    >
+      <Button size="clear" class="p-1.5">
+        <Cog6ToothIcon class="w-6" />
+      </Button>
+    </NuxtLink>
+
     <img
       :src="props.product.image_url || '/search-empty.png'"
       class="max-h-[200px] w-auto mx-auto mt-3"

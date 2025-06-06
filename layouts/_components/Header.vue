@@ -1,5 +1,8 @@
 <script setup lang="ts">
-import { ArrowRightStartOnRectangleIcon } from "@heroicons/vue/24/outline";
+import {
+  ArrowRightStartOnRectangleIcon,
+  ComputerDesktopIcon,
+} from "@heroicons/vue/24/outline";
 const runtimeConfig = useRuntimeConfig();
 
 const searchKey = ref("");
@@ -28,8 +31,9 @@ const handleSearch = () => {
           <span class="text-[#cd1818]">Next </span>Mobile
         </NuxtLink>
 
-
-        <div class="flex sm:hidden items-center absolute right-0 sm:r-unset sm:relative sm:ml-5 ">
+        <div
+          class="flex sm:hidden items-center absolute right-0 sm:r-unset sm:relative sm:ml-5"
+        >
           <template v-if="session">
             <p v-if="session?.username">{{ session.username }}</p>
 
@@ -66,6 +70,11 @@ const handleSearch = () => {
           {{ cat.category_name }}
         </NuxtLink>
       </template>
+
+      <NuxtLink href="/dashboard/product" class="flex ml-auto space-x-1 font-medium" v-if="session?.role === 'ADMIN'">
+        <ComputerDesktopIcon class="w-6" />
+        <span>Dashboard</span>
+      </NuxtLink>
     </div>
   </div>
 </template>

@@ -5,5 +5,7 @@ export default defineNuxtRouteMiddleware(async () => {
 
   if (import.meta.client && nuxtApp.isHydrating && nuxtApp.payload.serverRendered) {
     await fetch(config.public.API_ENDPOINT + "/greeting");
+
+    await sleep(1000);
   }
 });

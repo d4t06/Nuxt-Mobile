@@ -74,15 +74,8 @@ const classes = {
     <div :class="classes.galleryBody">
       <div :class="classes.bodyLeft">
         <div class="flex flex-wrap mt-[-8px] overflow-x-hidden overflow-y-auto mx-[-4px]">
-          <GalleryItem
-            v-for="image in uploadingImages"
-            className="opacity-[0.4]"
-            :image="image"
-            :active="false"
-          >
-            <ArrowPathIcon
-              className="animate-spin absolute duration-1000 text-[#000] w-7"
-            />
+          <GalleryItem v-for="image in uploadingImages" :image="image" :active="false">
+            <ArrowPathIcon class="animate-spin absolute duration-1000 text-[#000] w-7" />
           </GalleryItem>
 
           <GalleryItem
