@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { LockClosedIcon, LockOpenIcon } from "@heroicons/vue/16/solid";
 import { Editor, type Content } from "@tiptap/vue-3";
 import Gallery from "~/components/gallery/Gallery.vue";
 import type { ModalRef } from "~/shares/components/modal/Modal.vue";
@@ -7,8 +6,7 @@ import type { ModalRef } from "~/shares/components/modal/Modal.vue";
 type Props = {
   editor: Editor | undefined;
   isChange: boolean;
-  isLock: boolean;
-  toggleLock: () => void;
+  isDisable: boolean;
   submit: () => void;
 };
 
@@ -37,7 +35,7 @@ const classes = {
 
 <template>
   <div class="bg-[#cd1818] text-white flex justify-between items-center p-[10px]">
-    <div :class="`${classes.left} ${isLock ? 'disabled' : ''}`">
+    <div :class="`${classes.left} ${props.isDisable ? 'disabled' : ''}`">
       <button
         @click="() => props.editor?.chain().focus().setParagraph().run()"
         :class="props.editor?.isActive('paragraph') ? 'active' : ''"
@@ -74,11 +72,6 @@ const classes = {
       >
         save
       </Button>
-
-      <button @click="props.toggleLock">
-        <LockClosedIcon v-if="props.isLock" class="w-[20px]" />
-        <LockOpenIcon v-else class="w-[20px]" />
-      </button>
     </div>
   </div>
 

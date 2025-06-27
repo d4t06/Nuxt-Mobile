@@ -1,33 +1,13 @@
 <script setup lang="ts">
-import ProductSpecTable from "~/components/ProductSpecTable.vue";
 import { useProductContext } from "../_hooks/productProvider";
-import useProductAction from "../_hooks/useProductAction";
-import Editor, { type EditorRef } from "./Editor.vue";
-
-const { action, isFetching } = useProductAction();
 const { product } = useProductContext();
-
-const editorRef = ref<EditorRef>();
-
-const handleSubmit = async (v: string) => {
-  if (!product.value) return;
-
-    await action({
-      variant: "edit-desc",
-      desc: { content: v },
-      productId: product.value?.id,
-      callback: editorRef.value?.lock
-    });
-
-};
 </script>
 
 <template>
-  <div :class="`overflow-hidden ${isFetching ? 'disabled' : ''}`">
-    <Editor
-      ref="editorRef"
-      :submit="handleSubmit"
-      :content="product?.description.content"
-    />
+  <div class="p-5 rounded-lg border">
+    <div
+      v-html="product?.description.content"
+      class="content [&>*]:mt-5 [&>p]:text-[#495057] [&>h5]:font-[500] [&>h5]:text-xl [&>img]:rounded-[8px] sm:[&>img]:max-w-[80%] [&>img]:mx-auto"
+    ></div>
   </div>
 </template>

@@ -7,11 +7,12 @@ import EditorToolbar from "./EditorToolbar.vue";
 type Props = {
   submit: (content: string) => void;
   content?: string;
+  isDisable?: boolean;
 };
 
-export type EditorRef = {
-  lock: () => void;
-};
+// export type EditorRef = {
+//   lock: () => void;
+// };
 
 const props = defineProps<Props>();
 
@@ -24,39 +25,9 @@ const editor = useEditor({
 });
 
 const isChange = ref(false);
-const isLock = ref(true);
-
-const containerRef = ref<HTMLDivElement>();
-
-const toggleLock = () => {
-  const content = document.querySelector<HTMLDivElement>(".dashboard-content");
-  const newLock = !isLock.value;
-
-  if (content && containerRef.value) {
-    if (newLock) content.style.overflow = "auto";
-    else {
-      content.style.overflow = "hidden";
-
-      containerRef.value?.scrollIntoView({
-        block: "center",
-      });
-    }
-  }
-
-  isLock.value = newLock;
-};
-
-const lock = () => {
-  isChange.value = false;
-  toggleLock();
-};
-
-defineExpose({
-  lock,
-});
 
 const classes = {
-  wrapper: "my-editor border border-black/10 bg-white rounded-[12px] overflow-hidden",
+  wrapper: "my-editor bg-white rounded-lg overflow-hidden",
   editContainer: "max-h-[60vh] overflow-auto editor-container",
 };
 </script>
@@ -64,13 +35,12 @@ const classes = {
 <template>
   <div ref="containerRef" :class="classes.wrapper">
     <EditorToolbar
-      :isLock="isLock"
+      :isDisable="props.isDisable"
       :isChange="isChange"
-      :toggleLock="toggleLock"
       :submit="() => props.submit(editor?.getHTML() || '')"
       :editor="editor"
     />
-    <div :class="`${classes.editContainer} ${isLock ? 'pointer-events-none' : ''}`">
+    <div :class="`${classes.editContainer}`">
       <editor-content
         class="pt-[30px] sm:w-[70%] sm:mx-auto px-[20px] sm:px-[50px] pb-[50vh] [&_*]:mt-5 [&_h5]:text-lg [&_h5]:font-medium [&_p]:text-[#333]"
         :editor="editor"

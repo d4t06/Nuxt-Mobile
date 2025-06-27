@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { PencilIcon } from "@heroicons/vue/24/outline";
 import MyTable from "~/shares/components/MyTable.vue";
 import { useCategoryContext } from "~/stores/categoryProvider";
 import EditSpecBtn from "./EditSpecBtn.vue";

@@ -1,13 +1,14 @@
 <script setup lang="ts">
 type Props = {
   className?: string;
+  styled?: boolean;
 };
 
-const props = defineProps<Props>();
+const props = withDefaults(defineProps<Props>(), { styled: true });
 </script>
 <template>
   <div
-    :class="`${props.className || 'w-[400px]'}  flex flex-col py-3 px-4 max-h-[80vh] max-w-[90vw] rounded-lg bg-white`"
+    :class="`flex flex-col max-h-[80vh] max-w-[90vw]  ${props.styled ? 'rounded-lg bg-white py-3 px-4' : ''} ${props.className || 'w-[400px]'}`"
   >
     <slot />
   </div>

@@ -29,7 +29,7 @@ export default defineNuxtConfig({
   // env variables
   runtimeConfig: {
     public: {
-      API_ENDPOINT: process.env.API_ENDPOINT || "https://nest-mobile.vercel.app/api",
+      API_ENDPOINT: process.env.API_ENDPOINT,
     },
   },
 
@@ -51,7 +51,7 @@ export default defineNuxtConfig({
       enablePeriodically: false,
     },
     isEnabled: true,
-    baseURL: (process.env.API_ENDPOINT || "https://nest-mobile.vercel.app/api") + "/auth",
+    baseURL: process.env.API_ENDPOINT + "/auth",
     provider: {
       type: "local",
       endpoints: {

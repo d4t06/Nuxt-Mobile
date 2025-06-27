@@ -2,6 +2,7 @@
 import useProductDetail from "../_hooks/useProductDetail";
 import DangerZone from "./DangerZone.vue";
 import Description from "./Description.vue";
+import EditDescriptionBtn from "./EditDescriptionBtn.vue";
 import Editor from "./Editor.vue";
 import EditProductBtn from "./EditProductBtn.vue";
 import SpecTable from "./SpecTable.vue";
@@ -29,7 +30,11 @@ watchEffect(() => {
 
       <SpecTable :product="product" />
 
-      <h1>Detail</h1>
+      <div class="flex justify-between items-center">
+        <h1>Detail</h1>
+
+        <EditDescriptionBtn />
+      </div>
 
       <Description />
 
