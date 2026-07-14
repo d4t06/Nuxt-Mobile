@@ -7,7 +7,7 @@ type Props = {
 
 const props = defineProps<Props>();
 
-const { data: categories } = useNuxtData<Category[]>("categories");
+const { data: categories } = useAPI<Category[]>("categories");
 
 const { data: session } = useAuth();
 

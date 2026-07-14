@@ -1,17 +1,12 @@
 <script setup lang="ts">
 const route = useRoute();
 
-const runtimeConfig = useRuntimeConfig();
-
 const id = route.params["id"];
 
-const { data, status } = await useFetch<Product>(
-  `${runtimeConfig.public.API_ENDPOINT}/products/${id}`,
-  {
-    key: `product-${id}`,
-    lazy: true,
-  },
-);
+const { data, status } = await useAPI<Product>(`/products/${id}`, {
+  key: `product-${id}`,
+  lazy: true,
+});
 
 const classes = {
   detailBody: "md:flex items-start -mx-3",

@@ -1,25 +1,9 @@
 <script setup lang="ts">
-import {
-  ArrowRightStartOnRectangleIcon,
-  ComputerDesktopIcon,
-} from "@heroicons/vue/24/outline";
-const runtimeConfig = useRuntimeConfig();
-
-const searchKey = ref("");
+import { ArrowRightStartOnRectangleIcon } from "@heroicons/vue/24/outline";
 
 const { data: session, signOut } = useAuth();
 
-const { data } = await useFetch<Category[]>(
-  `${runtimeConfig.public.API_ENDPOINT}/categories`,
-  {
-    key: `categories`,
-  },
-);
-
-const handleSearch = () => {
-  if (!searchKey.value.trim()) return 
-  navigateTo(`/search?key=${searchKey.value}`);
-};
+const route = useRoute();
 </script>
 
 <template>
@@ -29,7 +13,7 @@ const handleSearch = () => {
         class="flex relative items-center justify-center w-full h-[50px] sm:h-auto sm:w-auto"
       >
         <NuxtLink class="" href="/">
-          <img src="/icons/vietnam_flag.png" class="w-12" />
+          <img src="/icons/house.png" class="w-12" />
         </NuxtLink>
 
         <div
@@ -48,7 +32,7 @@ const handleSearch = () => {
       </div>
 
       <div class="w-full sm:flex sm:items-center sm:w-auto ml-auto mt-[6px] sm:mt-0">
-        <SearchBar :submit="handleSearch" v-model="searchKey" />
+        <SearchBar v-if="route.path !== '/'" />
 
         <div class="hidden sm:flex items-center ml-5">
           <template v-if="session">
@@ -62,20 +46,6 @@ const handleSearch = () => {
           <NuxtLink class="hover:underline" href="/login" v-else>Sign in</NuxtLink>
         </div>
       </div>
-    </div>
-    <div
-      class="bg-[#cd1818] h-[40px] text-white items-center px-[10px] rounded-[6px] hidden gap-[10px] sm:flex"
-    >
-      <template v-if="data">
-        <NuxtLink v-for="cat in data" :href="`/${cat.id}`">
-          {{ cat.category_name }}
-        </NuxtLink>
-      </template>
-
-      <NuxtLink href="/dashboard/product" class="flex ml-auto space-x-1 font-medium" v-if="session?.role === 'ADMIN'">
-        <ComputerDesktopIcon class="w-6" />
-        <span>Dashboard</span>
-      </NuxtLink>
     </div>
   </div>
 </template>

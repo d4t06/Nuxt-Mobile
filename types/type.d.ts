@@ -38,15 +38,38 @@ type Product = {
   category: Category;
   attributes: ProductAttribute[];
   description: Description;
+  product_tags: ProductTag[];
+  features: ProductFeature[];
 };
 
 type ProductSchema = Omit<
   Product,
-  "id" | "attributes" | "category" | "category_id" | "brand_id" | "description"
+  | "id"
+  | "attributes"
+  | "category"
+  | "category_id"
+  | "brand_id"
+  | "description"
+  | "product_tags"
+  | "features"
 > & {
   category_id: number | undefined;
   brand_id: number | undefined;
 };
+
+type ProductTag = {
+  product_id: number;
+  tag_id: number;
+  tag: Tag;
+};
+
+type ProductFeature = {
+  id: numebr;
+  product_id: number;
+  value: string;
+};
+
+type ProductFeatureSchema = Omit<ProductFeature, "id">;
 
 type ProductResponse = {
   products: Product[];
@@ -107,3 +130,13 @@ type ProductCommentResponse = {
   size: number;
   count: number;
 };
+
+
+
+type Tag = {
+  id: number;
+  category_id: number;
+  name: string;
+};
+
+type TagSchema = Omit<Tag, "id">;

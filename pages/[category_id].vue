@@ -1,7 +1,6 @@
 <script setup lang="ts">
 const route = useRoute();
 
-const runtimeConfig = useRuntimeConfig();
 const { data: categories } = useNuxtData<Category[]>("categories");
 
 const curCategory = computed(() =>
@@ -22,9 +21,8 @@ const brandObj = computed(() => {
 
 const _page = computed(() => +(route.query.page as string) || 1);
 
-const { data, status, refresh } = await useFetch<ProductResponse>(
-  () =>
-    `${runtimeConfig.public.API_ENDPOINT}/products?category_id=${route.params["category_id"]}&page=${_page.value}&size=10`,
+const { data, status, refresh } = await useAPI<ProductResponse>(
+  `/products?category_id=${route.params["category_id"]}&page=${_page.value}`,
   {
     key: `category-${route.params["category_id"]}-${_page.value}`,
     lazy: true,

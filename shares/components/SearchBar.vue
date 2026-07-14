@@ -1,32 +1,22 @@
 <script setup lang="ts">
-import { MagnifyingGlassIcon } from "@heroicons/vue/24/outline";
+const searchKey = ref("");
 
-type Props = {
-  submit: () => void;
+const handleSearch = () => {
+  if (!searchKey.value.trim()) return;
+  navigateTo(`/search?key=${searchKey.value}`);
 };
-
-const model = defineModel({ default: "" });
-const props = defineProps<Props>();
-
-const inner = ref<HTMLInputElement | null>(null);
-
-defineExpose({ inner });
-
-const { submit } = toRefs(props);
 </script>
 
 <template>
-  <form class="flex items-center space-x-2" @submit.prevent="submit">
+  <form class="flex items-center space-x-2" @submit.prevent="handleSearch">
     <input
-      v-model="model"
+      v-model="searchKey"
       placeholder="..."
-      class="my-input w-full"
+      class="my-input w-full mr-2"
       type="text"
       name=""
     />
 
-    <Button size="clear" class="p-1">
-      <MagnifyingGlassIcon class="w-6" />
-    </Button>
+    <img src="/icons/magnifying.png" class="w-6" />
   </form>
 </template>

@@ -37,9 +37,9 @@ const handleLogin = async (payload: Event) => {
 <template>
   <div class="w-[400px] max-w-[90vw]">
     <Frame class="p-5">
-      <div class="text-center text-2xl">
-        <span class="text-[#cd1818]"> Nuxt </span>
-        Mobile
+      <div class="text-center text-3xl font-bold">
+        <span class="text-[#cd1818]"> What </span>
+        Inside
       </div>
 
       <p
@@ -51,11 +51,11 @@ const handleLogin = async (payload: Event) => {
       <form class="flex flex-col mt-5" @submit.prevent="handleLogin">
         <div>
           <label>Username</label>
-          <input v-model="username" type="text" placeholder="username" class="my-input" />
+          <input v-model="username" type="text" class="my-input" />
         </div>
         <div class="mt-3">
           <label>Password</label>
-          <input v-model="password" type="text" placeholder="password" class="my-input" />
+          <input v-model="password" type="text" class="my-input" />
         </div>
 
         <p class="text-center">
@@ -68,7 +68,7 @@ const handleLogin = async (payload: Event) => {
           >
         </p>
 
-        <p class="text-sm mt-5 ml-auto self-right">No have account jet?, get out!</p>
+        <p class="text-sm mt-5 ml-auto self-right">No have account jet?, just out :)</p>
       </form>
     </Frame>
   </div>

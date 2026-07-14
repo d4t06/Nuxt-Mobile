@@ -1,27 +1,9 @@
-<script setup lang="ts">
-import MobileCategories from "~/components/MobileCategories.vue";
-
-const runtimeConfig = useRuntimeConfig();
-
-const { data, status } = await useFetch<ProductResponse>(
-  `${runtimeConfig.public.API_ENDPOINT}/products`,
-);
-</script>
+<script setup lang="ts"></script>
 
 <template>
-  <div class="mt-5">
-    <MobileCategories />
-
-    <div class="text-xl font-medium text-[#1f1f1f] mt-5">Products</div>
-
-    <Loading v-if="status === 'pending'" />
-
-    <template v-else-if="data">
-      <NuxtLink v-for="product in data.products" :href="`product/${product.id}`">
-        <ProductItem :product="product" />
-      </NuxtLink>
-    </template>
-
-    <NotFound v-else />
+  <div class="h-full flex items-center justify-center flex-col">
+    <p class="text-4xl font-bold">What inside ?</p>
+    <br />
+    <SearchBar />
   </div>
 </template>

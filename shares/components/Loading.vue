@@ -1,5 +1,5 @@
 <template>
-	<!-- <Center> -->
+	<Center>
 		<img class="h-[250px] mx-auto" src="/loading.gif" />
-	<!-- </Center> -->
+	</Center>
 </template>;

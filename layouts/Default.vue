@@ -4,11 +4,13 @@ import Footer from "./_components/Footer.vue";
 </script>
 
 <template>
-	<Header />
+	<div class="h-screen flex flex-col">
+		<Header />
 
-	<div class="container min-h-[calc(100vh-180px)] relative">
-		<slot />
+		<div class="container flex-grow relative">
+			<slot />
+		</div>
+
+		<Footer />
 	</div>
-
-	<Footer />
 </template>

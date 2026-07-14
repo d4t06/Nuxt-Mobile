@@ -18,7 +18,7 @@ export default defineNuxtConfig({
   // app title
   app: {
     head: {
-      title: "Nuxt Mobile",
+      title: "What Inside",
     },
   },
 
@@ -29,7 +29,7 @@ export default defineNuxtConfig({
   // env variables
   runtimeConfig: {
     public: {
-      API_ENDPOINT: process.env.API_ENDPOINT,
+      API_ENDPOINT : "",
     },
   },
 
@@ -51,7 +51,7 @@ export default defineNuxtConfig({
       enablePeriodically: false,
     },
     isEnabled: true,
-    baseURL: process.env.API_ENDPOINT + "/auth",
+    baseURL: process.env.NUXT_PUBLIC_API_ENDPOINT + "/auth",
     provider: {
       type: "local",
       endpoints: {

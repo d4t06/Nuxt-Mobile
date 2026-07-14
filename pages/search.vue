@@ -1,14 +1,9 @@
 <script setup lang="ts">
 const route = useRoute();
 
-const runtimeConfig = useRuntimeConfig();
-
-const { data, status, refresh } = await useFetch<Product[]>(
-	() =>
-		`${runtimeConfig.public.API_ENDPOINT}/products/search?q=${route.query["key"]}`,
+const { data, status, refresh } = await useAPI<Product[]>(
+	`/products/search?q=${route.query["key"]}`,
 );
-
-console.log(">> check ", route.query["key"]);
 
 watch(
 	() => route.query["key"],
@@ -28,5 +23,7 @@ watch(
 		</NuxtLink>
 	</template>
 
-	<NotFound v-else />
+	<Center v-else>
+		<NotFound />
+	</Center>
 </template>

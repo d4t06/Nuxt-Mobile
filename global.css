@@ -4,8 +4,14 @@
 
 @layer components {
 	.my-input {
-		@apply border w-full bg-[#f6f6f6] border-black/10 rounded-md outline-none py-1.5 px-2;
+		@apply border w-full bg-[#f6f6f6] border-black/10 rounded-lg outline-none py-1.5 px-2;
 	}
+  .tag-item {
+    @apply flex text-xs space-x-1 font-semibold bg-black/10 rounded-md py-1 px-2;
+  }
+  .faded-text {
+    @apply text-gray-600;
+  }
 }
 
 button[disabled],
