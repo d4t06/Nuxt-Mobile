@@ -17,6 +17,7 @@ const { data } = await useFetch<Category[]>(
 );
 
 const handleSearch = () => {
+  if (!searchKey.value.trim()) return 
   navigateTo(`/search?key=${searchKey.value}`);
 };
 </script>
@@ -27,8 +28,8 @@ const handleSearch = () => {
       <div
         class="flex relative items-center justify-center w-full h-[50px] sm:h-auto sm:w-auto"
       >
-        <NuxtLink class="text-2xl font-[500]" href="/">
-          <span class="text-[#cd1818]">Next </span>Mobile
+        <NuxtLink class="" href="/">
+          <img src="/icons/vietnam_flag.png" class="w-12" />
         </NuxtLink>
 
         <div

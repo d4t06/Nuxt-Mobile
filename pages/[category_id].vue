@@ -24,7 +24,7 @@ const _page = computed(() => +(route.query.page as string) || 1);
 
 const { data, status, refresh } = await useFetch<ProductResponse>(
   () =>
-    `${runtimeConfig.public.API_ENDPOINT}/products?category_id=${route.params["category_id"]}&page=${_page.value}`,
+    `${runtimeConfig.public.API_ENDPOINT}/products?category_id=${route.params["category_id"]}&page=${_page.value}&size=10`,
   {
     key: `category-${route.params["category_id"]}-${_page.value}`,
     lazy: true,
