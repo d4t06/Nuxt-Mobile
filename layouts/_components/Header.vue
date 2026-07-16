@@ -8,12 +8,10 @@ const route = useRoute();
 
 <template>
   <div class="container">
-    <div class="sm:h-[60px] flex flex-col sm:flex-row items-start sm:items-center">
-      <div
-        class="flex relative items-center justify-center w-full h-[50px] sm:h-auto sm:w-auto"
-      >
+    <div class="sm:h-[60px] p-2 flex flex-col sm:flex-row items-start sm:items-center">
+      <div class="flex relative items-center w-full h-[50px] sm:h-auto sm:w-auto">
         <NuxtLink class="" href="/">
-          <img src="/icons/house.png" class="w-12" />
+          <img src="/icons/computer.png" class="w-10" />
         </NuxtLink>
 
         <div

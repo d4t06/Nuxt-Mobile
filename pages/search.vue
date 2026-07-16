@@ -1,29 +1,30 @@
 <script setup lang="ts">
 const route = useRoute();
 
-const { data, status, refresh } = await useAPI<Product[]>(
-	`/products/search?q=${route.query["key"]}`,
-);
+const key = computed(() => route.query["key"] || "");
 
-watch(
-	() => route.query["key"],
-	() => {
-		refresh();
+const { data, status } = await useAPI<Product[]>(`/products/search`, {
+	lazy: true,
+	query: {
+		q: key,
 	},
-);
+});
 </script>
 
 <template>
-	<Loading v-if="status === 'pending'" />
+	<div class="text-xl font-semibold mt-5">Search result for  "{{ key }}"</div>
 
-	<template v-else-if="data && data.length">
-		<div class="text-xl font-semibold mt-5">Search result:</div>
-		<NuxtLink v-for="product in data" :href="`/product/${product.id}`">
-			<ProductItem :product="product" />
-		</NuxtLink>
-	</template>
+	<ClientOnly>
+		<Loading v-if="status === 'pending'" />
 
-	<Center v-else>
-		<NotFound />
-	</Center>
+		<template v-else-if="data && data.length">
+			<NuxtLink v-for="product in data" :href="`/product/${product.id}`">
+				<ProductItem :product="product" />
+			</NuxtLink>
+		</template>
+
+		<Center v-else>
+			<NotFound />
+		</Center>
+	</ClientOnly>
 </template>
