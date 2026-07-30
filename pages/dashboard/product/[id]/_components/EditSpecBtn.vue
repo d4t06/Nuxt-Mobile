@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { PencilSquareIcon } from "@heroicons/vue/24/outline";
 import type { ModalRef } from "~/shares/components/modal/Modal.vue";
-import useSpectAction from "../_hooks/useSpecAction";
+// import useSpectAction from "../_hooks/useSpecAction";
 
 type Props = {
   attribute?: ProductAttribute;
@@ -13,7 +13,7 @@ const props = defineProps<Props>();
 
 const modalRef = ref<ModalRef>();
 
-const { action, isFetching } = useSpectAction({ modalRef });
+// const { action, isFetching } = useSpectAction({ modalRef });
 </script>
 <template>
   <Button :onClick="modalRef?.open" class="px-3 py-1" size="clear" colors="second">
@@ -27,25 +27,25 @@ const { action, isFetching } = useSpectAction({ modalRef });
       :title="props.attribute ? 'Edit attribute' : 'Add Attribute'"
       :init-value="props.attribute?.value"
       :close-modal="modalRef?.close"
-      :loading="isFetching"
+      :loading="false"
       :submit="
-        (v) =>
-          !props.attribute
-            ? action({
-                variant: 'Add',
-                productAttribute: {
-                  product_id: props.product.id,
-                  category_attribute_id: props.categoryAttribute.id,
-                  value: v,
-                },
-              })
-            : action({
-                variant: 'Edit',
-                id: props.attribute.id,
-                productAttribute: {
-                  value: v,
-                },
-              })
+        (v) => {}
+          // !props.attribute
+          //   ? action({
+          //       variant: 'Add',
+          //       productAttribute: {
+          //         product_id: props.product.id,
+          //         category_attribute_id: props.categoryAttribute.id,
+          //         value: v,
+          //       },
+          //     })
+          //   : action({
+          //       variant: 'Edit',
+          //       id: props.attribute.id,
+          //       productAttribute: {
+          //         value: v,
+          //       },
+          //     })
       "
     />
   </Modal>

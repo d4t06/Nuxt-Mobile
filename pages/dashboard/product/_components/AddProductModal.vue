@@ -20,7 +20,10 @@ type EditProduct = {
   callback: (product: Partial<ProductSchema>) => void;
 };
 
-const props = defineProps<Props & (AddProduct | EditProduct)>();
+const props = withDefaults(defineProps<Props & (AddProduct | EditProduct)>(), {
+  callback: () => {},
+  closeModal: () => {},
+});
 
 const { categories } = useCategoryContext();
 

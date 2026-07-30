@@ -95,7 +95,9 @@ type ProductAttribute = {
   value: string;
 };
 
-type ProductAttributeSchema = Omit<ProductAttribute, "id">;
+type ProductAttributeSchema = Omit<ProductAttribute, "id"> & {
+  id: number | undefined;
+};
 
 type Toast = {
   title?: "success" | "error" | "warning";
@@ -130,8 +132,6 @@ type ProductCommentResponse = {
   size: number;
   count: number;
 };
-
-
 
 type Tag = {
   id: number;

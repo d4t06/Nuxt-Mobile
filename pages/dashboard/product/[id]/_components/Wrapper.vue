@@ -1,11 +1,9 @@
 <script setup lang="ts">
 import useProductDetail from "../_hooks/useProductDetail";
 import DangerZone from "./DangerZone.vue";
-import Description from "./Description.vue";
-import EditDescriptionBtn from "./EditDescriptionBtn.vue";
-import Editor from "./Editor.vue";
 import EditProductBtn from "./EditProductBtn.vue";
 import SpecTable from "./SpecTable.vue";
+import DescriptionSection from "./DescriptionSection.vue";
 
 const { fetchProduct, product, isFetching } = useProductDetail();
 
@@ -26,17 +24,9 @@ watchEffect(() => {
         <EditProductBtn />
       </div>
 
-      <h1>Specification</h1>
-
       <SpecTable :product="product" />
 
-      <div class="flex justify-between items-center">
-        <h1>Detail</h1>
-
-        <EditDescriptionBtn />
-      </div>
-
-      <Description />
+      <DescriptionSection />
 
       <h1 class="text-red-500">Danger Zone</h1>
 

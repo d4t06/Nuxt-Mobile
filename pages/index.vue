@@ -1,9 +1,7 @@
 <script setup lang="ts"></script>
 
 <template>
-  <div class="h-full flex items-center justify-center flex-col">
-    <p class="text-4xl font-bold">What inside ?</p>
-    <br />
+  <Center class="w-[300px] text-center">
     <SearchBar />
-  </div>
+  </Center>
 </template>

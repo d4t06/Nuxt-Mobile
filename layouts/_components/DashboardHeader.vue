@@ -41,7 +41,7 @@ const classes = {
 
 <template>
   <div :class="`${classes.container} ${isScrolled ? 'shadow-md' : ''}`">
-    <div><span class="text-[#cd1818]">HD</span> Dashboard</div>
+    <p class="font-semibold">Whatinside</p>
 
     <div class="ml-auto">
       <button>

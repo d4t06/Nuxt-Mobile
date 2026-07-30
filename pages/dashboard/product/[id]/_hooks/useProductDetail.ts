@@ -2,7 +2,7 @@ import { ref } from "vue";
 import { useProductContext } from "./productProvider";
 
 export default function useProductDetail() {
-  const runtimeConfig = useRuntimeConfig();
+  const {$api} = useNuxtApp();
 
   const { product } = useProductContext();
 
@@ -12,8 +12,8 @@ export default function useProductDetail() {
 
   const fetchProduct = async () => {
     try {
-      const res = await $fetch<Product>(
-        `${runtimeConfig.public.API_ENDPOINT}/products/${route.params["id"]}`,
+      const res = await $api<Product>(
+        `/products/${route.params["id"]}`,
       );
 
       product.value = res;

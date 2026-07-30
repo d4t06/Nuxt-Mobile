@@ -3,6 +3,10 @@ export default defineNuxtConfig({
 
   devtools: { enabled: false },
 
+  devServer : {
+    host: '0.0.0.0'
+  },
+
   components: {
     dirs: [{ path: "~/shares/components", pathPrefix: false }, "~/components"],
   },

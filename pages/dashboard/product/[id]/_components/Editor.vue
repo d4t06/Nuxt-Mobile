@@ -1,8 +1,10 @@
-<script setup lang="ts">
+===<script setup lang="ts">
 import { useEditor, EditorContent } from "@tiptap/vue-3";
 import StarterKit from "@tiptap/starter-kit";
 import Image from "@tiptap/extension-image";
 import EditorToolbar from "./EditorToolbar.vue";
+import Video from "./video";
+
 
 type Props = {
   submit: (content: string) => void;
@@ -18,7 +20,7 @@ const props = defineProps<Props>();
 
 const editor = useEditor({
   content: props.content || "<p>Pass content as prop to Editor component</p",
-  extensions: [StarterKit, Image],
+  extensions: [StarterKit, Image, Video],
   onUpdate: () => {
     isChange.value = true;
   },
@@ -28,7 +30,7 @@ const isChange = ref(false);
 
 const classes = {
   wrapper: "my-editor bg-white rounded-lg overflow-hidden",
-  editContainer: "max-h-[60vh] overflow-auto editor-container",
+  editContainer: "max-h-[60vh] overflow-auto",
 };
 </script>
 
@@ -40,9 +42,9 @@ const classes = {
       :submit="() => props.submit(editor?.getHTML() || '')"
       :editor="editor"
     />
-    <div :class="`${classes.editContainer}`">
+    <div :class="`${classes.editContainer} ${isDisable ? 'disabled' : ''}`">
       <editor-content
-        class="pt-[30px] sm:w-[70%] sm:mx-auto px-[20px] sm:px-[50px] pb-[50vh] [&_*]:mt-5 [&_h5]:text-lg [&_h5]:font-medium [&_p]:text-[#333]"
+        class="prose pt-[30px] sm:mx-auto [&_img]:mx-auto pb-[50vh] [&_.ProseMirror-selectednode]:border-red-500"
         :editor="editor"
       />
     </div>

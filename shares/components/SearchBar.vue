@@ -11,7 +11,7 @@ const handleSearch = () => {
   <form class="flex items-center space-x-2" @submit.prevent="handleSearch">
     <input
       v-model="searchKey"
-      placeholder="..."
+      placeholder="Dell 5300"
       class="my-input w-full mr-2"
       type="text"
       name=""

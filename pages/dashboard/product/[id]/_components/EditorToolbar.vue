@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { Editor, type Content } from "@tiptap/vue-3";
-import Gallery from "~/components/gallery/Gallery.vue";
 import type { ModalRef } from "~/shares/components/modal/Modal.vue";
+import AddYTModal from "./AddYTModal.vue";
 
 type Props = {
   editor: Editor | undefined;
@@ -13,6 +13,7 @@ type Props = {
 const props = defineProps<Props>();
 
 const modalRef = ref<ModalRef>();
+const modal = ref<"image" | "yt" | "">("");
 
 const handleAddImage = (imageList: ImageType[]) => {
   if (!props.editor) return;
@@ -24,6 +25,19 @@ const handleAddImage = (imageList: ImageType[]) => {
   }));
 
   props.editor.chain().focus().insertContent(imageContents).run();
+};
+
+
+  const handleAddVideo = ({ id, title }: { id: string; title: string }) => {
+    if (!props.editor) return;
+
+    props.editor.chain().focus().setIframe({ id, title }).run();
+    modalRef.value?.close();
+  };
+
+const openModal = (m: typeof modal.value) => {
+  modal.value = m;
+  modalRef.value?.open();
 };
 
 const classes = {
@@ -48,7 +62,8 @@ const classes = {
       >
         h5
       </button>
-      <button @click="modalRef?.open">image</button>
+      <button @click="openModal('image')">image</button>
+      <button @click="openModal('yt')">video</button>
       <button
         @click="() => props.editor?.chain().focus().undo().run()"
         :disabled="!props.editor?.can().chain().focus().undo().run()"
@@ -67,7 +82,7 @@ const classes = {
         size="clear"
         colors="second"
         class="text-sm px-2 py-1"
-        :disabled="!isChange"
+        :disabled="!isChange || isDisable"
         :onClick="props.submit"
       >
         save
@@ -77,9 +92,11 @@ const classes = {
 
   <Modal ref="modalRef">
     <Gallery
+      v-if="modal === 'image'"
       :close-modal="modalRef?.close"
       :multiple="true"
       :set-image-url="handleAddImage"
     />
+    <AddYTModal :submit="handleAddVideo" :close-modal="modalRef?.close" v-if="modal === 'yt'" />
   </Modal>
 </template>

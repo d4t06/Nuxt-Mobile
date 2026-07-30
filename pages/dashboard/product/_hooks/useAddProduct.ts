@@ -11,11 +11,10 @@ export default function useAddProduct({ closeModal }: Props) {
   const { showToast } = useToastContext();
 
   const privateRequest = usePrivateFetch();
-  const config = useRuntimeConfig();
 
   const isFetching = ref(false);
 
-  const PRODUCT_URL = config.public.API_ENDPOINT + "/products";
+  const PRODUCT_URL = "/products";
 
   type Add = {
     variant: "Add";
@@ -41,6 +40,9 @@ export default function useAddProduct({ closeModal }: Props) {
           });
 
           products.value.unshift(res);
+
+
+          console.log(res)
 
           break;
         }
